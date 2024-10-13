@@ -101,7 +101,7 @@ export default function ResolutionsPage() {
                                             <TableCell>{resolution.status}</TableCell>
                                             <TableCell>{resolution.votes}</TableCell>
                                             <TableCell>
-                                                <Link href={`/resolutions/${resolution._id}`} passHref>
+                                                <Link href={`${resolution.resolutionLink}`} passHref>
                                                     <Button variant="outlined" color="primary" sx={{ mr: 1 }}>View</Button>
                                                 </Link>
                                                 {user?.role === 'senator' && (
