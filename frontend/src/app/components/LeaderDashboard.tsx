@@ -3,6 +3,7 @@ import { Typography, List, ListItem, ListItemText, Button, Paper, CircularProgre
 import { getResolutions, approveOrDenyResolution } from '../utils/api';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+import { Resolution } from '../interfaces';
 
 export default function LeaderDashboard() {
     const [resolutions, setResolutions] = useState([]);
@@ -62,11 +63,11 @@ export default function LeaderDashboard() {
                     </Box>
                 ) : (
                     <List>
-                        {resolutions.filter((res: any) => res.status === 'pending').map((resolution: any) => (
-                            <ListItem key={resolution.id}>
-                                <ListItemText primary={resolution.title} secondary={resolution.content} />
-                                <Button onClick={() => handleApprove(resolution.id)} color="primary" variant="contained" sx={{ mr: 1 }}>Approve</Button>
-                                <Button onClick={() => handleDeny(resolution.id)} color="secondary" variant="contained">Deny</Button>
+                        {resolutions.filter((res: Resolution) => res.status === 'pending').map((resolution: Resolution) => (
+                            <ListItem key={resolution._id}>
+                                <ListItemText primary={resolution.title} secondary={resolution.name} />
+                                <Button onClick={() => handleApprove(resolution._id)} color="primary" variant="contained" sx={{ mr: 1 }}>Approve</Button>
+                                <Button onClick={() => handleDeny(resolution._id)} color="secondary" variant="contained">Deny</Button>
                             </ListItem>
                         ))}
                     </List>

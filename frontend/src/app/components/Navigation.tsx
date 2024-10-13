@@ -24,7 +24,7 @@ const Navigation: React.FC = () => {
         { label: 'Information', href: '/information' },
         { label: 'Resolutions', href: '/resolutions' },
         ...(user ? [
-            { label: 'Submit Resolution', href: '/submit-resolution' },
+            ...(user.role === 'leader' ? [{ label: 'Submit Resolution', href: '/submit-resolution' }] : []),
             { label: 'Dashboard', href: '/dashboard' },
             { label: 'Logout', onClick: logout }
         ] : [
