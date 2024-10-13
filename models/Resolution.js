@@ -7,7 +7,9 @@ const resolutionSchema = new mongoose.Schema({
   votes: { type: Number, default: 0 },
   resolutionLink: {type: String},
   submittedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  votedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+
 });
 
 module.exports = mongoose.model('Resolution', resolutionSchema);
