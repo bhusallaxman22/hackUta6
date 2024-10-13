@@ -19,8 +19,8 @@ export const getResolutions = async () => {
     return response.data;
 };
 
-export const submitResolution = async (title: string, content: string) => {
-    const response = await api.post('/resolutions', { title, content });
+export const submitResolution = async (title: string, name: string, resolutionLink: string) => {
+    const response = await api.post('/resolutions', { title, name, resolutionLink });
     return response.data;
 };
 
@@ -39,6 +39,10 @@ export const getResolutionDetails = async (id: string) => {
     return response.data;
 };
 
+export const changeResolutionStatus = async (id: any, newStatus: any) => {
+    const response = await api.put(`/resolutions/${id}/status`, { status: newStatus });
+    return response.data;
+};
 export const requestPasswordReset = async (email: string) => {
     const response = await api.post('/auth/forgot-password', { email });
     return response.data;

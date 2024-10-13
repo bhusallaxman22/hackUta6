@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Paper, Container, CircularProgress } from '@mui/material';
+import { TextField, Button, Box, Typography, Paper, Container, CircularProgress, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -16,17 +16,18 @@ export default function RegisterPage() {
             username: '',
             password: '',
             confirmPassword: '',
+            userType: '',
         },
     });
 
-    const onSubmit = async (data: { username: string; password: string; confirmPassword: string }) => {
+    const onSubmit = async (data: { username: string; password: string; confirmPassword: string; userType: string }) => {
         if (data.password !== data.confirmPassword) {
             toast.error("Passwords don't match");
             return;
         }
         setIsLoading(true);
         try {
-            await register(data.username, data.password, 'guest');
+            await register(data.username, data.password, data.userType);
             toast.success("Registration Successful!")
             router.push('/login');
         } catch (error) {
@@ -92,6 +93,27 @@ export default function RegisterPage() {
                                     error={!!error}
                                     helperText={error?.message}
                                 />
+                            )}
+                        />
+                        <Controller
+                            name="userType"
+                            control={control}
+                            rules={{ required: 'User type is required' }}
+                            render={({ field, fieldState: { error } }) => (
+                                <FormControl fullWidth margin="normal" error={!!error}>
+                                    <InputLabel id="user-type-label">User Type</InputLabel>
+                                    <Select
+                                        {...field}
+                                        labelId="user-type-label"
+                                        label="User Type"
+                                    >
+                                        <MenuItem value="guest">Guest</MenuItem>
+                                        <MenuItem value="senator">Senator</MenuItem>
+                                        <MenuItem value="leader">Leader</MenuItem>
+                                        <MenuItem value="admin">Admin</MenuItem>
+                                    </Select>
+                                    {error && <Typography color="error" variant="caption">{error.message}</Typography>}
+                                </FormControl>
                             )}
                         />
                         <Button

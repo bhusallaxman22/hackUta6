@@ -51,7 +51,7 @@ export default function HomePage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <Link href="/submit-resolution" passHref>
+              <Link href="https://mavengage.uta.edu/submitter/form/start/494506" passHref>
                 <Button
                   variant="contained"
                   size="large"
@@ -72,24 +72,22 @@ export default function HomePage() {
             </motion.div>
           </Box>
         </Container>
-        <Box sx={{
-          position: 'absolute',
-          right: { xs: '-50%', md: -100 },
-          bottom: { xs: '-25%', md: -100 },
-          width: { xs: '100%', md: '60%' },
-          height: { xs: '50%', md: '120%' },
-          backgroundColor: 'white',
-          borderRadius: '50%',
-          zIndex: 0
-        }} />
-        <Box sx={{
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          width: { xs: '100%', md: '50%' },
-          height: { xs: '30%', md: '70%' },
-          zIndex: 1
-        }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            width: { xs: '100%', sm: '70%', md: '50%' },
+            height: '100%',
+            clipPath: {
+              xs: 'circle(100% at 50% 100%)',
+              sm: 'circle(100% at 70% 100%)',
+              md: 'circle(100% at 100% 50%)'
+            },
+            zIndex: 0,
+            overflow: 'hidden'
+          }}
+        >
           <Image
             src="/meeting-room.png"
             alt="Meeting Room"

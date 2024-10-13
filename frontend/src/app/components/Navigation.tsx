@@ -23,7 +23,6 @@ const Navigation: React.FC = () => {
         { label: 'Home', href: '/' },
         { label: 'Information', href: '/information' },
         { label: 'Resolutions', href: '/resolutions' },
-        { label: 'FAQs', href: '/faqs' },
         ...(user ? [
             { label: 'Submit Resolution', href: '/submit-resolution' },
             { label: 'Dashboard', href: '/dashboard' },
@@ -77,7 +76,9 @@ const Navigation: React.FC = () => {
                                     <MenuItem key={item.label} onClick={handleClose}>
                                         {item.href ? (
                                             <Link href={item.href} passHref>
-                                                <Typography textAlign="center">{item.label}</Typography>
+                                                <Typography textAlign="center" style={{
+                                                    color: "black"
+                                                }}>{item.label}</Typography>
                                             </Link>
                                         ) : (
                                             <Typography textAlign="center" onClick={item.onClick}>{item.label}</Typography>
@@ -91,7 +92,9 @@ const Navigation: React.FC = () => {
                             {menuItems.map((item) =>
                                 item.href ? (
                                     <Link key={item.label} href={item.href} passHref>
-                                        <Button color="inherit" component="a">{item.label}</Button>
+                                        <Button style={{
+                                            color: "black"
+                                        }} color="inherit" component="a">{item.label}</Button>
                                     </Link>
                                 ) : (
                                     <Button key={item.label} color="inherit" onClick={item.onClick}>{item.label}</Button>
