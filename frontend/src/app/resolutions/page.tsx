@@ -96,19 +96,19 @@ export default function ResolutionsPage() {
                                 </TableHead>
                                 <TableBody>
                                     {resolutions.map((resolution: Resolution) => (
-                                        <TableRow key={resolution.id}>
+                                        <TableRow key={resolution._id}>
                                             <TableCell>{resolution.title}</TableCell>
                                             <TableCell>{resolution.status}</TableCell>
                                             <TableCell>{resolution.votes}</TableCell>
                                             <TableCell>
-                                                <Link href={`/resolutions/${resolution.id}`} passHref>
+                                                <Link href={`/resolutions/${resolution._id}`} passHref>
                                                     <Button variant="outlined" color="primary" sx={{ mr: 1 }}>View</Button>
                                                 </Link>
                                                 {user?.role === 'senator' && (
                                                     <Button
                                                         variant="contained"
                                                         color="primary"
-                                                        onClick={() => handleVote(resolution.id)}
+                                                        onClick={() => handleVote(resolution._id)}
                                                         sx={{ mr: 1 }}
                                                     >
                                                         Vote
@@ -116,12 +116,12 @@ export default function ResolutionsPage() {
                                                 )}
                                                 {user?.role === 'leader' && (
                                                     <FormControl sx={{ minWidth: 120 }}>
-                                                        <InputLabel id={`status-select-label-${resolution.id}`}>Status</InputLabel>
+                                                        <InputLabel id={`status-select-label-${resolution._id}`}>Status</InputLabel>
                                                         <Select
-                                                            labelId={`status-select-label-${resolution.id}`}
+                                                            labelId={`status-select-label-${resolution._id}`}
                                                             value={resolution.status}
                                                             label="Status"
-                                                            onChange={(e) => handleStatusChange(resolution.id, e.target.value)}
+                                                            onChange={(e) => handleStatusChange(resolution._id, e.target.value)}
                                                         >
                                                             <MenuItem value="pending">Pending</MenuItem>
                                                             <MenuItem value="approved">Approved</MenuItem>

@@ -5,7 +5,7 @@ export interface User {
 }
 
 export interface Resolution {
-  id: string;
+  _id: string;
   title: string;
   name: string;
   status: 'pending' | 'approved' | 'denied';
