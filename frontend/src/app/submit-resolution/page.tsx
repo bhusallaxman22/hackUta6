@@ -62,14 +62,12 @@ export default function SubmitResolutionPage() {
             <Controller
               name="name"
               control={control}
-              rules={{ required: 'Content is required' }}
+              rules={{ required: 'Name is required' }}
               render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
-                  label="Content"
+                  label="Name"
                   fullWidth
-                  multiline
-                  rows={4}
                   margin="normal"
                   error={!!error}
                   helperText={error?.message}
