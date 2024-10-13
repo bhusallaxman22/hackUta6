@@ -18,7 +18,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
@@ -31,9 +31,15 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   const login = async (username: string, password: string) => {
     try {
-      const userData = await apiLogin(username, password);
+      const response = await apiLogin(username, password);
+      const userData: User = {
+        id: response.user._id,
+        username: response.user.username,
+        role: response.user.role,
+      };
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('token', response.token); // Store the token separately if needed
       router.push('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
@@ -44,6 +50,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     router.push('/');
   };
 

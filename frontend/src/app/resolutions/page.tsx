@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useState, useEffect } from 'react';
 import {
     Typography,
@@ -58,7 +59,7 @@ export default function ResolutionsPage() {
         }
     };
 
-    const handleStatusChange = async (id: any, newStatus: any) => {
+    const handleStatusChange = async (id: string, newStatus: string) => {
         try {
             await changeResolutionStatus(id, newStatus);
             toast.success('Resolution status updated successfully');
@@ -100,10 +101,10 @@ export default function ResolutionsPage() {
                                             <TableCell>{resolution.status}</TableCell>
                                             <TableCell>{resolution.votes}</TableCell>
                                             <TableCell>
-                                                <Link href={`${resolution.resolutionLink}`} passHref>
+                                                <Link href={`/resolutions/${resolution.id}`} passHref>
                                                     <Button variant="outlined" color="primary" sx={{ mr: 1 }}>View</Button>
                                                 </Link>
-                                                {user && user.role === 'senator' && (
+                                                {user?.role === 'senator' && (
                                                     <Button
                                                         variant="contained"
                                                         color="primary"
@@ -113,7 +114,7 @@ export default function ResolutionsPage() {
                                                         Vote
                                                     </Button>
                                                 )}
-                                                {user && user.role === 'leader' && (
+                                                {user?.role === 'leader' && (
                                                     <FormControl sx={{ minWidth: 120 }}>
                                                         <InputLabel id={`status-select-label-${resolution.id}`}>Status</InputLabel>
                                                         <Select
