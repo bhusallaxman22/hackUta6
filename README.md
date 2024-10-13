@@ -50,7 +50,7 @@ This project is a robust, scalable Node.js backend with MongoDB for a Student Go
 1. **Clone the repository**
 
    ```
-   git clone https://github.com/your-username/student-government-backend.git
+   git clone https://github.com/bhusallaxman22/hackUta6.git
    cd student-government-backend
    ```
 
