@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Typography, Container, Paper, Box } from '@mui/material';
+import { Typography, Container, Paper, Box, Grid } from '@mui/material';
 import LeaderDashboard from '../components/LeaderDashboard';
 import SenatorDashboard from '../components/SenatorDashboard';
 import { useAuth } from '../context/AuthContext';
 import AdminDashboard from '../components/AdminDashboard';
+import { motion } from 'framer-motion';
 
 export default function DashboardPage() {
     const { user } = useAuth();
@@ -30,13 +31,23 @@ export default function DashboardPage() {
     }
 
     return (
-        <Container>
-            <Paper elevation={3} sx={{ mt: 4, p: 4, background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)' }}>
-                <Typography variant="h4" gutterBottom>Dashboard</Typography>
-                <Box>
-                    <DashboardComponent />
-                </Box>
-            </Paper>
+        <Container maxWidth="lg">
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Paper elevation={3} sx={{ mt: 4, p: 4 }}>
+                    <Typography variant="h4" gutterBottom>Dashboard</Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Box>
+                                <DashboardComponent />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </motion.div>
         </Container>
     );
 }

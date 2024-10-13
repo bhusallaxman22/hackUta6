@@ -1,5 +1,10 @@
+"use client"
+
+import React from 'react';
 import { Box, Container, Typography, Button } from "@mui/material";
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -10,50 +15,69 @@ export default function HomePage() {
         backgroundColor: '#0064b1',
         overflow: 'hidden'
       }}>
-        {/* Rest of the content remains the same */}
         <Container maxWidth="lg" sx={{ height: '100%', position: 'relative', zIndex: 1 }}>
           <Box sx={{
             position: 'absolute',
             top: '50%',
             transform: 'translateY(-50%)',
             color: 'white',
-            maxWidth: '50%'
+            maxWidth: { xs: '100%', md: '50%' }
           }}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h1" component="div" sx={{ fontWeight: 'bold', fontSize: '6rem' }}>
-                SG
-              </Typography>
-              <Typography variant="h4" component="div">
-                UT ARLINGTON
-              </Typography>
-            </Box>
-            <Typography variant="h5" sx={{ mb: 4 }}>
-              Welcome to the Student Government resolution page where you can be the solution to the problems on campus.
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                backgroundColor: '#f58025',
-                color: 'white',
-                borderRadius: '50px',
-                padding: '10px 40px',
-                fontSize: '1.5rem',
-                '&:hover': {
-                  backgroundColor: '#d86d1b'
-                }
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Submit Now!
-            </Button>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h1" component="div" sx={{ fontWeight: 'bold', fontSize: { xs: '4rem', md: '6rem' } }}>
+                  SG
+                </Typography>
+                <Typography variant="h4" component="div">
+                  UT ARLINGTON
+                </Typography>
+              </Box>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Typography variant="h5" sx={{ mb: 4 }}>
+                Welcome to the Student Government resolution page where you can be the solution to the problems on campus.
+              </Typography>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <Link href="/submit-resolution" passHref>
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    backgroundColor: '#f58025',
+                    color: 'white',
+                    borderRadius: '50px',
+                    padding: '10px 40px',
+                    fontSize: '1.5rem',
+                    '&:hover': {
+                      backgroundColor: '#d86d1b'
+                    }
+                  }}
+                >
+                  Submit Now!
+                </Button>
+              </Link>
+            </motion.div>
           </Box>
         </Container>
         <Box sx={{
           position: 'absolute',
-          right: -100,
-          bottom: -100,
-          width: '60%',
-          height: '120%',
+          right: { xs: '-50%', md: -100 },
+          bottom: { xs: '-25%', md: -100 },
+          width: { xs: '100%', md: '60%' },
+          height: { xs: '50%', md: '120%' },
           backgroundColor: 'white',
           borderRadius: '50%',
           zIndex: 0
@@ -62,8 +86,8 @@ export default function HomePage() {
           position: 'absolute',
           right: 0,
           bottom: 0,
-          width: '50%',
-          height: '70%',
+          width: { xs: '100%', md: '50%' },
+          height: { xs: '30%', md: '70%' },
           zIndex: 1
         }}>
           <Image

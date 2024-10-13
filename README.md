@@ -4,6 +4,23 @@
 
 This project is a robust, scalable Node.js backend with MongoDB for a Student Government portal. It provides secure APIs for managing student government information, resolution submissions, and voting processes.
 
+## How To Run
+- download node.js from [nodejs.org](https://nodejs.org/en)
+### To run the **backend** run 
+- Create a `.env` file in the root directory of the project. It should look something like:
+    ```
+    MONGODB_URI=MONGO_CONNECTION_STRING
+    JWT_SECRET=YOUR_SECRET
+    ```
+- `npm install`
+- `node app.js`
+
+### To run the **frontend** run 
+- `cd frontend`
+- `npm install`
+- `npm dev`
+
+
 ## Features
 
 - **User Authentication**: Secure registration and login system.

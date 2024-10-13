@@ -1,18 +1,31 @@
-import type { Metadata } from "next";
+"use client"
+
+import React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Navigation from './components/Navigation';
-import "./globals.css";
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./context/AuthContext";
 import { theme } from "./styles/theme";
+import Footer from './components/Footer';
+import { useEffect, useState } from 'react';
 
-export const metadata: Metadata = {
-  title: "Student Government Portal",
-  description: "A portal for student government activities and resolutions",
-};
 
+function ClientOnlyToastContainer() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
+  return <ToastContainer position="bottom-right" />;
+}
+
+// In your Layout component:
 export default function RootLayout({
   children,
 }: {
@@ -25,8 +38,14 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <AuthProvider>
-              <Navigation />
-              {children}
+              <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <Navigation />
+                <main style={{ flexGrow: 1 }}>
+                  {children}
+                </main>
+                <Footer />
+              </div>
+              <ClientOnlyToastContainer />
             </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

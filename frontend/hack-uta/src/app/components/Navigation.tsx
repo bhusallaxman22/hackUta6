@@ -1,56 +1,106 @@
 'use client';
-
-import React from 'react';
-import { AppBar, Toolbar, Button, Box, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Button, Box, Typography, useMediaQuery, Theme, IconButton, Menu, MenuItem, Container } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
+import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
     const { user, logout } = useAuth();
+    const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const menuItems = [
+        { label: 'Home', href: '/' },
+        { label: 'Information', href: '/information' },
+        { label: 'Resolutions', href: '/resolutions' },
+        { label: 'FAQs', href: '/faqs' },
+        ...(user ? [
+            { label: 'Submit Resolution', href: '/submit-resolution' },
+            { label: 'Dashboard', href: '/dashboard' },
+            { label: 'Logout', onClick: logout }
+        ] : [
+            { label: 'Login', href: '/login' },
+            { label: 'Register', href: '/register' }
+        ])
+    ];
 
     return (
-        <AppBar position="static" sx={{ background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)' }}>
-            <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                    Student Gov
-                </Typography>
-                <Box>
-                    <Link href="/" passHref>
-                        <Button color="inherit" component="a">Home</Button>
-                    </Link>
-                    <Link href="/information" passHref>
-                        <Button color="inherit" component="a">Information</Button>
-                    </Link>
-                    <Link href="/resolutions" passHref>
-                        <Button color="inherit" component="a">Resolutions</Button>
-                    </Link>
-                    <Link href="/faqs" passHref>
-                        <Button color="inherit" component="a">FAQs</Button>
-                    </Link>
-                    {user && (
-                        <Link href="/submit-resolution" passHref>
-                            <Button color="inherit" component="a">Submit Resolution</Button>
-                        </Link>
-                    )}
-                    {user && (
-                        <Link href="/dashboard" passHref>
-                            <Button color="inherit" component="a">Dashboard</Button>
-                        </Link>
-                    )}
-                    {user ? (
-                        <Button color="inherit" onClick={logout}>Logout</Button>
-                    ) : (
+        <AppBar position="static" sx={{ background: '#F58025', backdropFilter: 'blur(10px)' }}>
+            <Container maxWidth="lg">
+                <Toolbar disableGutters>
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                            Student Gov
+                        </Typography>
+                    </motion.div>
+                    {isMobile ? (
                         <>
-                            <Link href="/login" passHref>
-                                <Button color="inherit" component="a">Login</Button>
-                            </Link>
-                            <Link href="/register" passHref>
-                                <Button color="inherit" component="a">Register</Button>
-                            </Link>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                onClick={handleMenu}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                {menuItems.map((item) => (
+                                    <MenuItem key={item.label} onClick={handleClose}>
+                                        {item.href ? (
+                                            <Link href={item.href} passHref>
+                                                <Typography textAlign="center">{item.label}</Typography>
+                                            </Link>
+                                        ) : (
+                                            <Typography textAlign="center" onClick={item.onClick}>{item.label}</Typography>
+                                        )}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
                         </>
+                    ) : (
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            {menuItems.map((item) =>
+                                item.href ? (
+                                    <Link key={item.label} href={item.href} passHref>
+                                        <Button color="inherit" component="a">{item.label}</Button>
+                                    </Link>
+                                ) : (
+                                    <Button key={item.label} color="inherit" onClick={item.onClick}>{item.label}</Button>
+                                )
+                            )}
+                        </Box>
                     )}
-                </Box>
-            </Toolbar>
+                </Toolbar>
+            </Container>
         </AppBar>
     );
 };
